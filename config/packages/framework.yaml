@@ -9,6 +9,9 @@ framework:
     session:
         handler_id: ~
 
+    property_info:
+        enabled: true
+
     #esi: true
     #fragments: true
     php_errors:
