@@ -28,8 +28,8 @@
 /vendor/
 
 # Assets and user uploads
-/web/bundles/
-/web/uploads/
+/public/bundles/
+/public/uploads/
 
 # PHPUnit
 /app/phpunit.xml
