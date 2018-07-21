@@ -98,6 +98,9 @@
             "ref": "66070ea553247b0cd5275e21d0fe5399a25f40be"
         }
     },
+    "fzaninotto/faker": {
+        "version": "v1.8.0"
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
