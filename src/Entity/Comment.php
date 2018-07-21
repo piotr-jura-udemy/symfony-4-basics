@@ -6,10 +6,10 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\BlogPostRepository")
  * @ApiResource()
+ * @ORM\Entity(repositoryClass="App\Repository\CommentRepository")
  */
-class BlogPost
+class Comment
 {
     /**
      * @ORM\Id()
@@ -19,9 +19,9 @@ class BlogPost
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
      */
-    private $title;
+    private $content;
 
     /**
      * @ORM\Column(type="datetime")
@@ -29,48 +29,14 @@ class BlogPost
     private $published;
 
     /**
-     * @ORM\Column(type="text")
-     */
-    private $content;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="posts")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
      */
     private $author;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $slug;
-
     public function getId()
     {
         return $this->id;
-    }
-
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
-
-    public function setTitle(string $title): self
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
-    public function getPublished(): ?\DateTimeInterface
-    {
-        return $this->published;
-    }
-
-    public function setPublished(\DateTimeInterface $published): self
-    {
-        $this->published = $published;
-
-        return $this;
     }
 
     public function getContent(): ?string
@@ -85,14 +51,16 @@ class BlogPost
         return $this;
     }
 
-    public function getSlug(): ?string
+    public function getPublished(): ?\DateTimeInterface
     {
-        return $this->slug;
+        return $this->published;
     }
 
-    public function setSlug($slug): void
+    public function setPublished(\DateTimeInterface $published): self
     {
-        $this->slug = $slug;
+        $this->published = $published;
+
+        return $this;
     }
 
     /**
