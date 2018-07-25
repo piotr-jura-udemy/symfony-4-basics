@@ -7,6 +7,7 @@
         "ext-iconv": "*",
         "api-platform/api-pack": "^1.1",
         "easycorp/easyadmin-bundle": "^1.17",
+        "lexik/jwt-authentication-bundle": "^2.5",
         "sensio/framework-extra-bundle": "^5.2",
         "symfony/console": "^4.1",
         "symfony/flex": "^1.0",
