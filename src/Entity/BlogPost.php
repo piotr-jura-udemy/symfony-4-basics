@@ -11,7 +11,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BlogPostRepository")
  * @ApiResource(
- *     itemOperations={"get"},
+ *     itemOperations={
+ *         "get",
+ *         "put"={
+ *             "access_control"="is_granted('IS_AUTHENTICATED_FULLY') and object.getAuthor() == user"
+ *         }
+ *     },
  *     collectionOperations={
  *         "get",
  *         "post"={
