@@ -24,6 +24,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  *             "access_control"="is_granted('IS_AUTHENTICATED_FULLY') and object == user",
  *             "denormalization_context"={
  *                 "groups"={"put"}
+ *             },
+ *             "normalization_context"={
+ *                 "groups"={"get"}
  *             }
  *         }
  *     },
@@ -31,6 +34,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  *         "post"={
  *             "denormalization_context"={
  *                 "groups"={"post"}
+ *             },
+ *             "normalization_context"={
+ *                 "groups"={"get"}
  *             }
  *         }
  *     },
