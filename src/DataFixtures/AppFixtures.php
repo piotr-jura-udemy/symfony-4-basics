@@ -21,6 +21,33 @@ class AppFixtures extends Fixture
      */
     private $faker;
 
+    private const USERS = [
+        [
+            'username' => 'admin',
+            'email' => 'admin@blog.com',
+            'name' => 'Piotr Jura',
+            'password' => 'secret123#'
+        ],
+        [
+            'username' => 'john_doe',
+            'email' => 'john@blog.com',
+            'name' => 'John Doe',
+            'password' => 'secret123#'
+        ],
+        [
+            'username' => 'rob_smith',
+            'email' => 'rob@blog.com',
+            'name' => 'Rob Smith',
+            'password' => 'secret123#'
+        ],
+        [
+            'username' => 'jenny_rowling',
+            'email' => 'jenny@blog.com',
+            'name' => 'Jenny Rowling',
+            'password' => 'secret123#'
+        ]
+    ];
+
     public function __construct(UserPasswordEncoderInterface $passwordEncoder)
     {
         $this->passwordEncoder = $passwordEncoder;
