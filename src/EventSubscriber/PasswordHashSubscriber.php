@@ -36,7 +36,7 @@ class PasswordHashSubscriber implements EventSubscriberInterface
             ->getMethod();
 
         if (!$user instanceof User ||
-            !in_array($method, [Request::METHOD_POST, Request::METHOD_PUT])) {
+            !in_array($method, [Request::METHOD_POST])) {
             return;
         }
 
