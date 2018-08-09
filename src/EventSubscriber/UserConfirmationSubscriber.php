@@ -10,6 +10,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 class UserConfirmationSubscriber implements EventSubscriberInterface
@@ -57,12 +58,14 @@ class UserConfirmationSubscriber implements EventSubscriberInterface
             ['confirmationToken' => $confirmationToken->confirmationToken]
         );
 
-        // User was found by confirmation token
-        if ($user) {
-            $user->setEnabled(true);
-            $user->setConfirmationToken(null);
-            $this->entityManager->flush();
+        // User was NOT found by confirmation token
+        if (!$user) {
+            throw new NotFoundHttpException();
         }
+
+        $user->setEnabled(true);
+        $user->setConfirmationToken(null);
+        $this->entityManager->flush();
 
         $event->setResponse(new JsonResponse(null, Response::HTTP_OK));
     }
