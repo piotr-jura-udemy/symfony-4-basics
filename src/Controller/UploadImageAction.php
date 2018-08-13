@@ -41,7 +41,7 @@ class UploadImageAction
         // Create a new Image instance
         $image = new Image();
         // Validate the form
-        $form = $this->formFactory->create(null, $image);
+        $form = $this->formFactory->create(ImageType::class, $image);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
