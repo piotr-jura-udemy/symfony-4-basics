@@ -20,7 +20,8 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *     properties={
  *         "id": "exact",
  *         "title": "partial",
- *         "content": "partial"
+ *         "content": "partial",
+ *         "author": "exact"
  *     }
  * )
  * @ApiResource(
