@@ -38,4 +38,6 @@ services:
         tags:
             - { name: 'serializer.normalizer', priority: 64 }
 
-
+    App\Security\UserConfirmationService:
+        arguments:
+            $logger: '@monolog.logger.token_confirmation'
