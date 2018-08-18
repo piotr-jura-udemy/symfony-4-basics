@@ -16,3 +16,6 @@ api_platform:
             client_items_per_page: true # Disabled by default
             items_per_page_parameter_name: itemsPerPage
             maximum_items_per_page: 20
+            partial: false
+            client_partial: true
+            partial_parameter_name: 'partial'
