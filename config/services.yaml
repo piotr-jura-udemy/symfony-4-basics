@@ -38,4 +38,4 @@ services:
         tags:
             - { name: 'serializer.normalizer', priority: 64 }
 
-    App\
+
