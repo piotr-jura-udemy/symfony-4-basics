@@ -6,3 +6,10 @@ api_platform:
 #            mime_types: ['application/json']
     eager_loading:
         enabled: true
+    collection:
+        pagination:
+#            enabled: false
+            page_parameter_name: _page
+#            client_enabled: true
+#            enabled_parameter_name: pagination
+            items_per_page: 4
