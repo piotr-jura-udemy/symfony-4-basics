@@ -21,3 +21,4 @@ api_platform:
             partial_parameter_name: 'partial'
     exception_to_status:
         App\Exception\EmptyBodyException: 400
+        App\Exception\InvalidConfirmationTokenException: 404
