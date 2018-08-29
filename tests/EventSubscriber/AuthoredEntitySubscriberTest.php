@@ -23,4 +23,19 @@ class AuthoredEntitySubscriberTest extends TestCase
             $result[KernelEvents::VIEW]
         );
     }
+
+    public function testSetAuthorCall()
+    {
+        $tokenMock = $this->getMockBuilder(TokenInterface::class)
+            ->getMockForAbstractClass();
+        $tokenMock->expects($this->once())
+            ->method('getUser')
+            ->willReturn(new User());
+
+        $tokenStorageMock = $this->getMockBuilder(TokenStorageInterface::class)
+            ->getMockForAbstractClass();
+        $tokenStorageMock->expects($this->once())
+            ->method('getToken')
+            ->willReturn($tokenMock);
+    }
 }
