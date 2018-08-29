@@ -37,5 +37,13 @@ class AuthoredEntitySubscriberTest extends TestCase
         $tokenStorageMock->expects($this->once())
             ->method('getToken')
             ->willReturn($tokenMock);
+
+        $eventMock = $this->getMockBuilder(GetResponseForControllerResultEvent::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        (new AuthoredEntitySubscriber($tokenStorageMock))->getAuthenticatedUser(
+            $eventMock
+        );
     }
 }
