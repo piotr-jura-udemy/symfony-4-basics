@@ -1,0 +1,21 @@
+default:
+    suites:
+        default:
+            contexts:
+                - FeatureContext:
+                    kernel: '@kernel'
+                - Behat\MinkExtension\Context\MinkContext
+                - behatch:context:json
+
+    extensions:
+        Behat\Symfony2Extension:
+            kernel:
+                bootstrap: features/bootstrap/bootstrap.php
+                class: App\Kernel
+        Behatch\Extension: ~
+        Behat\MinkExtension:
+            base_url: 'http://127.0.0.1:8000'
+            sessions:
+                default:
+                    symfony2: ~
+
