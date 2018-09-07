@@ -41,3 +41,8 @@ services:
     App\Security\UserConfirmationService:
         arguments:
             $logger: '@monolog.logger.token_confirmation'
+
+    App\EventListener\ExceptionListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, priority: 1 }
+        arguments: ['@api_platform.action.exception', '@logger', false]
