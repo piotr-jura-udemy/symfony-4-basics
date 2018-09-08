@@ -105,4 +105,15 @@ class FeatureContext extends \Behatch\Context\RestContext
             $this->fixtures
         ]);
     }
+
+    /**
+     * @BeforeScenario @image
+     */
+    public function prepareImages()
+    {
+        copy(
+            __DIR__.'/../fixtures/Stewie.png',
+            __DIR__.'/../fixtures/files/Stewie.png'
+        );
+    }
 }
