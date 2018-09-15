@@ -13,7 +13,7 @@ if (!isset($_SERVER['APP_ENV']) || !isset($_ENV['APP_ENV'])) {
         throw new \RuntimeException('APP_ENV environment variable is not defined. You need to define environment variables for configuration or add "symfony/dotenv" as a Composer dependency to load variables from a .env file.');
     }
     // Load either .env or .env.test for running tests
-    $env = $_SERVER['APP_ENV'] ?? $_ENV['APP_ENV'] === 'dev' ? '' : '.test';
+    $env = $_SERVER['APP_ENV'] ?? ($_ENV['APP_ENV'] ?? 'dev') === 'dev' ? '' : '.test';
     (new Dotenv())->load(__DIR__.'/../.env' . $env);
 }
 
