@@ -52,10 +52,12 @@ use ApiPlatform\Core\Serializer\Filter\PropertyFilter;
  * @ApiResource(
  *     attributes={"order"={"published": "DESC"}, "maximum_items_per_page"=30},
  *     itemOperations={
- *         "get",
- *         "put"={
- *             "access_control"="is_granted('ROLE_EDITOR') or (is_granted('ROLE_WRITER') and object.getAuthor() == user)"
- *         }
+ *         "get"={
+ *             "normalization_context"={
+ *                 "groups"={"get-blog-post-with-author"}
+ *             }
+ *         },
+ *         "put"
  *     },
  *     collectionOperations={
  *         "get",
