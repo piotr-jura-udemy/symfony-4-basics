@@ -55,8 +55,8 @@ use App\Controller\ResetPasswordAction;
  *     },
  * )
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @UniqueEntity("username", groups={"post", "put"})
- * @UniqueEntity("email", groups={"post", "put"})
+ * @UniqueEntity("username", errorPath="username", groups={"post"})
+ * @UniqueEntity("email", groups={"post"})
  */
 class User implements UserInterface
 {
@@ -72,7 +72,7 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"get", "get-blog-post-with-author"})
+     * @Groups({"get", "get-blog-post-with-author", "get-comment-with-author"})
      */
     private $id;
 

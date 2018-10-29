@@ -56,8 +56,10 @@ use ApiPlatform\Core\Serializer\Filter\PropertyFilter;
  *             "normalization_context"={
  *                 "groups"={"get-blog-post-with-author"}
  *             }
- *         },
- *         "put"
+ *          },
+ *         "put"={
+ *             "access_control"="is_granted('ROLE_EDITOR') or (is_granted('ROLE_WRITER') and object.getAuthor() == user)"
+ *         }
  *     },
  *     collectionOperations={
  *         "get",
