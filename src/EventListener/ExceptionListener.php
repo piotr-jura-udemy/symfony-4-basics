@@ -6,45 +6,35 @@ use ApiPlatform\Core\Exception\InvalidArgumentException;
 use ApiPlatform\Core\Exception\ItemNotFoundException;
 use ApiPlatform\Core\Bridge\Symfony\Validator\Exception\ValidationException;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
-use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
-use Symfony\Component\HttpKernel\EventListener\ExceptionListener as BaseExceptionListener;
 use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\ConstraintViolationList;
 
-class ExceptionListener extends BaseExceptionListener
+class ExceptionListener
 {
     public function onKernelException(ExceptionEvent $event)
     {
-        $request = $event->getRequest();
-        // Normalize exceptions only for routes managed by API Platform
-        if ('html' === $request->getRequestFormat('') ||
-            (!$request->attributes->has('_api_resource_class') &&
-                !$request->attributes->has('_api_respond') &&
-                !$request->attributes->has('_graphql'))) {
-            return;
+        // You get the exception object from the received event
+        $exception = $event->getThrowable();
+        $message = sprintf(
+            'My Error says: %s with code: %s',
+            $exception->getMessage(),
+            $exception->getCode()
+        );
+
+        // Customize your response object to display the exception details
+        $response = new Response();
+        $response->setContent($message);
+
+        // HttpExceptionInterface is a special type of exception that
+        // holds status code and header details
+        if ($exception instanceof HttpExceptionInterface) {
+            $response->setStatusCode($exception->getStatusCode());
+            $response->headers->replace($exception->getHeaders());
+        } else {
+            $response->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        $exception = $event->getException();
-
-        if ($exception instanceof InvalidArgumentException &&
-            $exception->getPrevious() instanceof ItemNotFoundException) {
-            $violations = new ConstraintViolationList(
-                [
-                    new ConstraintViolation(
-                        $exception->getMessage(),
-                        null,
-                        [],
-                        '',
-                        '',
-                        ''
-                    )
-                ]
-            );
-
-            $e = new ValidationException($violations);
-            $event->setException($e);
-
-            return;
-        }
+        // sends the modified response object to the event
+        $event->setResponse($response);
     }
 }
