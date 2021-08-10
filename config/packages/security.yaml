@@ -1,50 +1,23 @@
 security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
-    encoders:
-        App\Entity\User: bcrypt
     providers:
-        database:
-            entity:
-                class: App\Entity\User
-                property: username
+        users_in_memory: { memory: null }
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        api:
-            pattern: ^/api
-            stateless: true
-            anonymous: true
-            json_login:
-                # Here authentication will happen (token generation)
-                check_path: /api/login_check
-                # Handle successfull authentication
-                success_handler: lexik_jwt_authentication.handler.authentication_success
-                # Handle authentication failure (invalid credentials, no credentials etc).
-                failure_handler: lexik_jwt_authentication.handler.authentication_failure
-            guard:
-                authenticators:
-#                    - lexik_jwt_authentication.jwt_token_authenticator
-                    - App\Security\TokenAuthenticator
-            user_checker: App\Security\UserEnabledChecker
-        admin:
-            pattern: ^/
-            anonymous: true
-            form_login:
-                check_path: security_login
-                login_path: security_login
-                default_target_path: admin
-                use_referer: true
-            logout:
-                path: security_logout
+        main:
+            anonymous: lazy
+            provider: users_in_memory
+
+            # activate different ways to authenticate
+            # https://symfony.com/doc/current/security.html#firewalls-authentication
+
+            # https://symfony.com/doc/current/security/impersonating_user.html
+            # switch_user: true
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/login,     roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin,     roles: ROLE_SUPERADMIN }
-        - { path: ^/api,       roles: IS_AUTHENTICATED_ANONYMOUSLY }
-    role_hierarchy:
-        ROLE_WRITER: ROLE_COMMENTATOR
-        ROLE_ADMIN: [ROLE_WRITER, ROLE_EDITOR]
-        ROLE_SUPERADMIN: ROLE_ADMIN
+        # - { path: ^/admin, roles: ROLE_ADMIN }
+        # - { path: ^/profile, roles: ROLE_USER }
